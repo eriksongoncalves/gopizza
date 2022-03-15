@@ -1,6 +1,7 @@
 import * as S from './styles';
 
 import { Input } from '@components/Input';
+import { Button } from '@components/Button';
 
 const SignIn = () => {
   return (
@@ -13,6 +14,8 @@ const SignIn = () => {
       />
 
       <Input placeholder="Senha" type="secondary" secureTextEntry />
+
+      <Button title="Entrar" type="secondary" />
     </S.Container>
   );
 };
