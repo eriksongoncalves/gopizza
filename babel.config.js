@@ -12,7 +12,9 @@ module.exports = function (api) {
             '@components': './src/components',
             '@screens': './src/screens',
             '@assets': './src/assets',
-            '@theme': './src/theme'
+            '@theme': './src/theme',
+            '@shared': './src/shared',
+            '@hooks': './src/hooks'
           }
         }
       ]

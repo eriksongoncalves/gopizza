@@ -1,6 +1,7 @@
 import { DMSans_400Regular, useFonts } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import SignIn from '@screens/SignIn';
+import { AuthProvider } from '@src/hooks/auth';
 import theme from '@theme/index';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -28,7 +29,9 @@ export default function App() {
     <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <StatusBar style="light" translucent />
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
