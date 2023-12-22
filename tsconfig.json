@@ -5,7 +5,8 @@
       "@src/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@screens/*": ["./src/screens/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@theme/*": ["./src/theme/*"]
     },
     "target": "esnext",
     "module": "commonjs",
