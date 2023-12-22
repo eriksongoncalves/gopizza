@@ -1,12 +1,12 @@
 import { DMSans_400Regular, useFonts } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
+import SignIn from '@screens/SignIn';
+import theme from '@theme/index';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback } from 'react';
-import { View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from 'styled-components';
-import SignIn from './src/screens/SignIn';
-import theme from './src/theme';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,11 +25,11 @@ export default function App() {
   }
 
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+    <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <StatusBar style="light" translucent />
         <SignIn />
       </ThemeProvider>
-    </View>
+    </GestureHandlerRootView>
   );
 }
