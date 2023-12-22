@@ -27,6 +27,6 @@ export default {
     shape: '#DCDCDC',
     title: '#FFFFFF',
 
-    GRADIENT: ['#B83341', '#E03F50']
+    gradient: ['#B83341', '#E03F50']
   }
 } as const;

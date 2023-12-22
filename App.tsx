@@ -1,11 +1,12 @@
 import { DMSans_400Regular, useFonts } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
-import theme from '@src/theme';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
+import SignIn from './src/screens/SignIn';
+import theme from './src/theme';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,10 +25,10 @@ export default function App() {
   }
 
   return (
-    <View onLayout={onLayoutRootView}>
+    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
+        <StatusBar style="light" translucent />
+        <SignIn />
       </ThemeProvider>
     </View>
   );
