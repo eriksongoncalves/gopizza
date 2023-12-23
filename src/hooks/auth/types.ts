@@ -1,11 +1,6 @@
 import { Credentials, User } from '@shared/types';
 import { ReactNode } from 'react';
 
-export type AuthData = {
-  token: string;
-  user: User;
-};
-
 export type SignInCredentials = Credentials;
 
 export type signUpInput = Omit<User, 'id'> & {
@@ -13,11 +8,12 @@ export type signUpInput = Omit<User, 'id'> & {
 };
 
 export type AuthContextProps = {
-  user: User;
+  user: User | undefined;
+  loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): Promise<void>;
   signUp(data: signUpInput): Promise<void>;
-  loading: boolean;
+  forgotPassword: (email: string) => void;
 };
 
 export type AuthProviderProps = {

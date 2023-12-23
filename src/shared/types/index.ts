@@ -1,7 +1,7 @@
 export type User = {
   id: string;
-  username: string;
-  email: string;
+  name: string;
+  isAdmin: boolean;
 };
 
 export type Credentials = {
