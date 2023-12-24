@@ -2,10 +2,10 @@ export default {
   fonts: {
     family: {
       dmSans: {
-        regular: 'DMSans_400Regular'
+        regular: 'DMSans_400Regular' // TEXT
       },
       dmSerifDisplay: {
-        regular: 'DMSerifDisplay_400Regular'
+        regular: 'DMSerifDisplay_400Regular' // TITLE
       }
     }
   },

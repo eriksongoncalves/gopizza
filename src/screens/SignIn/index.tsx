@@ -1,11 +1,11 @@
-import Button from '@components/Button';
-import Input from '@components/Input';
-import { useAuth } from '@hooks/auth';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
 
 import branding from '@assets/brand.png';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import { useAuth } from '@hooks/auth';
 import { SignInFormData, resolver } from './schemaValidation';
 import * as S from './styles';
 
