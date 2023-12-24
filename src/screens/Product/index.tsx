@@ -1,14 +1,30 @@
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import Button from '@components/Button';
 import ButtonBack from '@components/ButtonBack';
+import Input from '@components/Input';
+import InputPrice from '@components/InputPrice';
 import Photo from '@components/Photo';
+import { ProductFormData, resolver } from './schemaValidation';
 import * as S from './styles';
 
 export default function Product() {
   const [image, setImage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    handleSubmit,
+    // formState: { errors },
+    control
+  } = useForm<ProductFormData>({
+    resolver
+  });
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -31,27 +47,138 @@ export default function Product() {
     }
   }
 
+  async function handleSavePizza(data: ProductFormData) {
+    try {
+      setIsLoading(true);
+
+      if (!image) {
+        Alert.alert('Opss', 'É preciso carregar uma imagem para a pizza');
+        return;
+      }
+
+      const filename = new Date().getTime();
+      const reference = storage().ref(`pizzas/${filename}.png`);
+
+      await reference.putFile(image);
+
+      const photo_url = await reference.getDownloadURL();
+
+      await firestore()
+        .collection('pizzas')
+        .add({
+          name: data.name,
+          name_insensitive: data.name.toLowerCase().trim(),
+          description: data.description,
+          prices_sizes: {
+            p: data.priceSizeP,
+            m: data.priceSizeM,
+            g: data.priceSizeG
+          },
+          photo_url,
+          photo_path: reference.fullPath
+        });
+
+      Alert.alert('\\O/', 'Pizza cadastrada com sucesso');
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('>>> handleSavePizza error', e);
+      Alert.alert('Opss', 'Ocorreu um erro ao cadastrar a pizza');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <S.Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <S.Header>
-        <ButtonBack onPress={() => {}} />
+    <S.Container>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <S.Header>
+          <ButtonBack onPress={() => {}} />
 
-        <S.Title>Cadastrar</S.Title>
+          <S.Title>Cadastrar</S.Title>
 
-        <TouchableOpacity onPress={() => {}}>
-          <S.DeleteLabel>Deletar</S.DeleteLabel>
-        </TouchableOpacity>
-      </S.Header>
+          <TouchableOpacity onPress={() => {}}>
+            <S.DeleteLabel>Deletar</S.DeleteLabel>
+          </TouchableOpacity>
+        </S.Header>
 
-      <S.Updoad>
-        <Photo uri="https://github.com/eriksongoncalves.png" />
+        <S.Updoad>
+          <Photo uri={image} />
 
-        <S.PickImageButton
-          title="Carregar"
-          type="secondary"
-          onPress={handlePickerImage}
-        />
-      </S.Updoad>
+          <S.PickImageButton
+            title="Carregar"
+            type="secondary"
+            onPress={handlePickerImage}
+          />
+        </S.Updoad>
+
+        <S.Form>
+          <S.InputGroup>
+            <S.Label>Nome</S.Label>
+            <Controller
+              name="name"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input onChangeText={onChange} value={value} />
+              )}
+            />
+          </S.InputGroup>
+
+          <S.InputGroup>
+            <S.InputGroupHeader>
+              <S.Label>Descrição</S.Label>
+              <S.MaxCharacters>0 de 60 caracteres</S.MaxCharacters>
+            </S.InputGroupHeader>
+
+            <Controller
+              name="description"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  multiline
+                  maxLength={60}
+                  style={{ height: 80 }}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+            />
+          </S.InputGroup>
+
+          <S.InputGroup>
+            <S.Label>Tamanhos e preços</S.Label>
+
+            <Controller
+              name="priceSizeP"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <InputPrice size="P" onChangeText={onChange} value={value} />
+              )}
+            />
+
+            <Controller
+              name="priceSizeM"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <InputPrice size="M" onChangeText={onChange} value={value} />
+              )}
+            />
+
+            <Controller
+              name="priceSizeG"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <InputPrice size="G" onChangeText={onChange} value={value} />
+              )}
+            />
+          </S.InputGroup>
+
+          <Button
+            title="Cadastrar Pizza"
+            isLoading={isLoading}
+            onPress={() => handleSubmit(handleSavePizza)()}
+          />
+        </S.Form>
+      </ScrollView>
     </S.Container>
   );
 }

@@ -16,11 +16,7 @@ export default function SignIn() {
     // formState: { errors },
     control
   } = useForm<SignInFormData>({
-    resolver,
-    defaultValues: {
-      email: 'eriksongoncalves@yahoo.com.br',
-      password: '123456'
-    }
+    resolver
   });
 
   async function handleSignIn(data: SignInFormData) {

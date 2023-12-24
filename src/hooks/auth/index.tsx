@@ -42,6 +42,7 @@ const AuthProvider = ({ children }: types.AuthProviderProps) => {
 
       setUser(userData);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('>>> signIn error', error);
       throw new Error('Login ou senha inválidos');
     } finally {
@@ -51,6 +52,7 @@ const AuthProvider = ({ children }: types.AuthProviderProps) => {
 
   const signUp = async (data: types.signUpInput) => {
     try {
+      // eslint-disable-next-line no-console
       console.log('>>> data', data);
     } catch (error) {
       throw new Error('Ocorreu um erro ao tentar se cadastrar');

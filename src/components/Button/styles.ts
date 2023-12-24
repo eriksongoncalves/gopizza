@@ -16,8 +16,8 @@ export const Container = styled(RectButton)<Props>`
     justify-content: center;
     align-items: center;
     background-color: ${type === 'primary'
-      ? theme.colors.primary_900
-      : theme.colors.success_900};
+      ? theme.colors.success_900
+      : theme.colors.primary_800};
   `}
 `;
 
