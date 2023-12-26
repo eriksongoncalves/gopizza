@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   ${({ theme }) => css`
-    width: '100%';
+    width: 100%;
     height: 56px;
     border: 1px solid ${theme.colors.shape};
     border-radius: 12px;

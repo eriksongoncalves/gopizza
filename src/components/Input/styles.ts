@@ -13,7 +13,7 @@ export const Container = styled(TextInput).attrs<Props>(({ theme, type }) => ({
     type === 'primary' ? theme.colors.secondary_900 : theme.colors.primary_50
 }))<Props>`
   ${({ theme, type, isMultiline }) => css`
-    width: '100%';
+    width: 100%;
     height: 56px;
     background-color: transparent;
     border-radius: 12px;

@@ -7,7 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from 'styled-components';
 
 import { AuthProvider } from '@hooks/auth';
-import Product from '@screens/Product';
+import Home from '@screens/Home';
 import theme from '@theme/index';
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <StatusBar style="light" translucent />
         <AuthProvider>
-          <Product />
+          <Home />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>

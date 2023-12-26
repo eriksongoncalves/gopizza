@@ -17,7 +17,7 @@ export const Content = styled.ScrollView.attrs({
     paddingBottom: getBottomSpace() + 48
   }
 })`
-  width: '100%';
+  width: 100%;
   padding: 0 32px;
 `;
 

@@ -2,36 +2,21 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@src/*": [
-        "./src/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@screens/*": [
-        "./src/screens/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@theme/*": [
-        "./src/theme/*"
-      ],
-      "@shared/*": [
-        "./src/shared/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ]
+      "@src/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@routes/*": ["./src/@routes/*"]
     },
     "target": "esnext",
     "module": "commonjs",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "lib": [
-      "es6"
-    ],
+    "lib": ["es6"],
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
@@ -41,9 +26,7 @@
     "isolatedModules": true,
     "experimentalDecorators": true
   },
-  "typeRoots": [
-    "./src/@types"
-  ],
+  "typeRoots": ["./src/@types"],
   "exclude": [
     "node_modules",
     "babel.config.js",
@@ -51,9 +34,6 @@
     "ios",
     "android"
   ],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
   "extends": "expo/tsconfig.base"
 }

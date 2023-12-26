@@ -1,9 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Button from '@components/Button';
@@ -11,6 +12,9 @@ import ButtonBack from '@components/ButtonBack';
 import Input from '@components/Input';
 import InputPrice from '@components/InputPrice';
 import Photo from '@components/Photo';
+
+import { PizzaModel } from '@shared/types/collections';
+import { ProductNavigationProps } from '@shared/types/navigation';
 import { ProductFormData, resolver } from './schemaValidation';
 import * as S from './styles';
 
@@ -18,8 +22,13 @@ export default function Product() {
   const [image, setImage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params as ProductNavigationProps;
+
   const {
     handleSubmit,
+    setValue,
     // formState: { errors },
     control
   } = useForm<ProductFormData>({
@@ -79,26 +88,68 @@ export default function Product() {
         });
 
       Alert.alert('\\O/', 'Pizza cadastrada com sucesso');
+      navigation.navigate('home');
     } catch (e) {
+      setIsLoading(false);
       // eslint-disable-next-line no-console
       console.log('>>> handleSavePizza error', e);
       Alert.alert('Opss', 'Ocorreu um erro ao cadastrar a pizza');
-    } finally {
-      setIsLoading(false);
     }
   }
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
+  function handleDelete() {
+    firestore()
+      .collection('pizzas')
+      .doc(id)
+      .delete()
+      .then(() => {
+        storage()
+          .ref(image)
+          .delete()
+          .then(() => navigation.navigate('home'));
+      });
+  }
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection('pizzas')
+        .doc(id)
+        .get()
+        .then(response => {
+          const product = response.data() as PizzaModel;
+
+          setValue('name', product.name);
+          setValue('description', product.description);
+          setValue('priceSizeP', product.prices_sizes.p);
+          setValue('priceSizeM', product.prices_sizes.m);
+          setValue('priceSizeG', product.prices_sizes.g);
+
+          setImage(product.photo_path);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <S.Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         <S.Header>
-          <ButtonBack onPress={() => {}} />
+          <ButtonBack onPress={handleGoBack} />
 
           <S.Title>Cadastrar</S.Title>
 
-          <TouchableOpacity onPress={() => {}}>
-            <S.DeleteLabel>Deletar</S.DeleteLabel>
-          </TouchableOpacity>
+          {id ? (
+            <TouchableOpacity onPress={handleDelete}>
+              <S.DeleteLabel>Deletar</S.DeleteLabel>
+            </TouchableOpacity>
+          ) : (
+            <View style={{ width: 20 }} />
+          )}
         </S.Header>
 
         <S.Updoad>
@@ -172,11 +223,13 @@ export default function Product() {
             />
           </S.InputGroup>
 
-          <Button
-            title="Cadastrar Pizza"
-            isLoading={isLoading}
-            onPress={() => handleSubmit(handleSavePizza)()}
-          />
+          {!id && (
+            <Button
+              title="Cadastrar Pizza"
+              isLoading={isLoading}
+              onPress={() => handleSubmit(handleSavePizza)()}
+            />
+          )}
         </S.Form>
       </ScrollView>
     </S.Container>
