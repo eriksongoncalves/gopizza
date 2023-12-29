@@ -129,7 +129,7 @@ export default function Product() {
           setValue('priceSizeM', product.prices_sizes.m);
           setValue('priceSizeG', product.prices_sizes.g);
 
-          setImage(product.photo_path);
+          setImage(product.photo_url);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,14 +152,16 @@ export default function Product() {
           )}
         </S.Header>
 
-        <S.Updoad>
+        <S.Updoad canEdit={!id}>
           <Photo uri={image} />
 
-          <S.PickImageButton
-            title="Carregar"
-            type="secondary"
-            onPress={handlePickerImage}
-          />
+          {!id && (
+            <S.PickImageButton
+              title="Carregar"
+              type="secondary"
+              onPress={handlePickerImage}
+            />
+          )}
         </S.Updoad>
 
         <S.Form>

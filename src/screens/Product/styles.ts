@@ -37,13 +37,15 @@ export const DeleteLabel = styled.Text`
   `}
 `;
 
-export const Updoad = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 32px 0;
-  padding: 0 24px;
+export const Updoad = styled.View<{ canEdit: boolean }>`
+  ${({ canEdit }) => css`
+    width: 100%;
+    flex-direction: row;
+    justify-content: ${canEdit ? 'flex-start' : 'center'};
+    align-items: center;
+    margin: 32px 0;
+    padding: 0 24px;
+  `}
 `;
 
 export const PickImageButton = styled(Button)`

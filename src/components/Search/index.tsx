@@ -24,7 +24,6 @@ export default function Search({ onSearch, onClear, ...rest }: Props) {
       </S.InputArea>
 
       <S.Button onPress={onSearch}>
-        const theme = useTheme();
         <Feather name="search" size={16} color={theme.colors.title} />
       </S.Button>
     </S.Container>
