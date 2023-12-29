@@ -5,6 +5,7 @@ import { useAuth } from '@hooks/auth';
 
 import Home from '@screens/Home';
 import Product from '@screens/Product';
+import Order from '@screens/Order';
 
 import { UserTabRoutes } from './user.tab.routes';
 
@@ -23,6 +24,7 @@ export function UserStackRoutes() {
       ) : (
         <Group>
           <Screen name="UserTabRoutes" component={UserTabRoutes} />
+          <Screen name="order" component={Order} />
         </Group>
       )}
     </Navigator>
