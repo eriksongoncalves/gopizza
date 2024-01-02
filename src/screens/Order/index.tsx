@@ -1,31 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, Alert } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Platform } from 'react-native';
 
 import { useAuth } from '@hooks/auth';
 
-import { PIZZA_TYPES } from '@shared/constants';
-import Input from '@components/Input';
 import Button from '@components/Button';
 import ButtonBack from '@components/ButtonBack';
+import Input from '@components/Input';
 import RadioButton from '@components/RadioButton';
-import { ProductProps } from '@src/components/ProductCard';
+import { PIZZA_TYPES } from '@shared/constants';
 import { OrderNavigationProps } from '@shared/types/navigation';
+import { ProductProps } from '@src/components/ProductCard';
+import { OrderStatus } from '@src/shared/enums/orders';
 
-import {
-  Container,
-  ContentScroll,
-  Header,
-  Photo,
-  Sizes,
-  Form,
-  Title,
-  Label,
-  InputGroup,
-  FormRow,
-  Price
-} from './styles';
+import * as S from './styles';
 
 type PizzaResponse = ProductProps & {
   prices_sizes: {
@@ -72,7 +61,7 @@ export default function Order() {
         pizza: pizza.name,
         size,
         table_number: tableNumber,
-        status: 'Preparando',
+        status: OrderStatus.PREPARANDO,
         waiter_id: user?.id,
         image: pizza.photo_url
       })
@@ -97,19 +86,19 @@ export default function Order() {
   }, [id]);
 
   return (
-    <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ContentScroll>
-        <Header>
+    <S.Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <S.ContentScroll>
+        <S.Header>
           <ButtonBack onPress={handleGoBack} style={{ marginBottom: 108 }} />
-        </Header>
+        </S.Header>
 
-        <Photo source={{ uri: pizza.photo_url }} />
+        <S.Photo source={{ uri: pizza.photo_url }} />
 
-        <Form>
-          <Title>{pizza.name}</Title>
-          <Label>Selecione um tamanho</Label>
+        <S.Form>
+          <S.Title>{pizza.name}</S.Title>
+          <S.Label>Selecione um tamanho</S.Label>
 
-          <Sizes>
+          <S.Sizes>
             {PIZZA_TYPES.map(item => (
               <RadioButton
                 key={item.id}
@@ -118,32 +107,32 @@ export default function Order() {
                 selected={size === item.id}
               />
             ))}
-          </Sizes>
+          </S.Sizes>
 
-          <FormRow>
-            <InputGroup>
-              <Label>Número da mesa</Label>
+          <S.FormRow>
+            <S.InputGroup>
+              <S.Label>Número da mesa</S.Label>
               <Input keyboardType="numeric" onChangeText={setTableNumber} />
-            </InputGroup>
+            </S.InputGroup>
 
-            <InputGroup>
-              <Label>Quantidade</Label>
+            <S.InputGroup>
+              <S.Label>Quantidade</S.Label>
               <Input
                 keyboardType="numeric"
                 onChangeText={value => setQuantity(Number(value))}
               />
-            </InputGroup>
-          </FormRow>
+            </S.InputGroup>
+          </S.FormRow>
 
-          <Price>Valor de R$ {amount}</Price>
+          <S.Price>Valor de R$ {amount}</S.Price>
 
           <Button
             title="Confirmar pedido"
             onPress={handleOrder}
             isLoading={sendingOrder}
           />
-        </Form>
-      </ContentScroll>
-    </Container>
+        </S.Form>
+      </S.ContentScroll>
+    </S.Container>
   );
 }

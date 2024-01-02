@@ -1,10 +1,10 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 
-import { Container, Title, Radio, Selected, RadioButtonProps } from './styles';
+import * as S from './styles';
 
 type Props = TouchableOpacityProps &
-  RadioButtonProps & {
+  S.RadioButtonProps & {
     title: string;
   };
 
@@ -14,10 +14,10 @@ export default function RadioButton({
   ...rest
 }: Props) {
   return (
-    <Container selected={selected} {...rest}>
-      <Radio>{selected && <Selected />}</Radio>
+    <S.Container selected={selected} {...rest}>
+      <S.Radio>{selected && <S.Selected />}</S.Radio>
 
-      <Title>{title}</Title>
-    </Container>
+      <S.Title>{title}</S.Title>
+    </S.Container>
   );
 }

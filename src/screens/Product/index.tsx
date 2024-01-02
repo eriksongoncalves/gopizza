@@ -12,9 +12,9 @@ import ButtonBack from '@components/ButtonBack';
 import Input from '@components/Input';
 import InputPrice from '@components/InputPrice';
 import Photo from '@components/Photo';
-
 import { PizzaModel } from '@shared/types/collections';
 import { ProductNavigationProps } from '@shared/types/navigation';
+
 import { ProductFormData, resolver } from './schemaValidation';
 import * as S from './styles';
 

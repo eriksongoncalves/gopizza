@@ -2,10 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { useAuth } from '@hooks/auth';
-
 import Home from '@screens/Home';
-import Product from '@screens/Product';
 import Order from '@screens/Order';
+import Product from '@screens/Product';
 
 import { UserTabRoutes } from './user.tab.routes';
 

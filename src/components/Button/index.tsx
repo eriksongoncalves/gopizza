@@ -1,5 +1,6 @@
 import React from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
+
 import * as S from './styles';
 
 type ButtonProps = {
