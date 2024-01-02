@@ -8,11 +8,11 @@ import { useAuth } from '@hooks/auth';
 import Button from '@components/Button';
 import ButtonBack from '@components/ButtonBack';
 import Input from '@components/Input';
+import { ProductProps } from '@components/ProductCard';
 import RadioButton from '@components/RadioButton';
 import { PIZZA_TYPES } from '@shared/constants';
+import { OrderStatus } from '@shared/enums/orders';
 import { OrderNavigationProps } from '@shared/types/navigation';
-import { ProductProps } from '@src/components/ProductCard';
-import { OrderStatus } from '@src/shared/enums/orders';
 
 import * as S from './styles';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 
-import { OrderStatus } from '@src/shared/enums/orders';
+import { OrderStatus } from '@shared/enums/orders';
 import * as S from './styles';
 
 export type OrderProps = {

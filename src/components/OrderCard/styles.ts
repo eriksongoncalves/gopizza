@@ -1,6 +1,6 @@
 import styled, { DefaultTheme, css } from 'styled-components/native';
 
-import { OrderStatus } from '@src/shared/enums/orders';
+import { OrderStatus } from '@shared/enums/orders';
 
 type ContainerProps = {
   index: number;

@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components/native';
 
 import BottomMenu from '@components/BottomMenu';
 import Home from '@screens/Home';
-import { Orders } from '@src/screens/Orders';
+import { Orders } from '@screens/Orders';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

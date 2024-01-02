@@ -5,7 +5,7 @@ import { Alert, FlatList } from 'react-native';
 import ItemSeparator from '@components/ItemSeparator';
 import OrderCard, { OrderProps } from '@components/OrderCard';
 import { useAuth } from '@hooks/auth';
-import { OrderStatus } from '@src/shared/enums/orders';
+import { OrderStatus } from '@shared/enums/orders';
 
 import * as S from './styles';
 
