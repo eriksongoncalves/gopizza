@@ -3,13 +3,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 
-import { useAuth } from '@hooks/auth';
-
 import Button from '@components/Button';
 import ButtonBack from '@components/ButtonBack';
 import Input from '@components/Input';
 import { ProductProps } from '@components/ProductCard';
 import RadioButton from '@components/RadioButton';
+import { useAuth } from '@hooks/auth';
 import { PIZZA_TYPES } from '@shared/constants';
 import { OrderStatus } from '@shared/enums/orders';
 import { OrderNavigationProps } from '@shared/types/navigation';
